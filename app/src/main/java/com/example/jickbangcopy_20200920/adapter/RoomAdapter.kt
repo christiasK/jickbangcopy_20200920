@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.jickbangcopy_20200920.R
 import com.example.jickbangcopy_20200920.data.Room
-import kotlin.math.abs
 
 class RoomAdapter(
     mContext: Context,
@@ -30,31 +29,12 @@ class RoomAdapter(
         val row = tempRow!!
 
         val room = this.getItem(position)!!
-        val floor = getFloorText(room)
 
-        row.findViewById<TextView>(R.id.price).text = "${room.price}"
-        row.findViewById<TextView>(R.id.area).text = "${room.area}, $floor"
+        row.findViewById<TextView>(R.id.price).text = room.getPriceText()
+        row.findViewById<TextView>(R.id.area).text = "${room.area}, ${room.getFloorText()}"
         row.findViewById<TextView>(R.id.description).text = room.description
 
         return row
-    }
-
-
-    private fun getFloorText(room: Room): String {
-        val floorNo = abs(room.floor)
-
-        val floor = "${floorNo}층"
-
-        if (room.floor == 0) {
-            return "반지하"
-        }
-
-        if (room.floor < 0) {
-            return "지하 $floor"
-        }
-
-        return floor
-
     }
 
 }

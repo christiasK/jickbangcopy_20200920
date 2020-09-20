@@ -1,7 +1,7 @@
 package com.example.jickbangcopy_20200920
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import com.example.jickbangcopy_20200920.adapter.RoomAdapter
 import com.example.jickbangcopy_20200920.data.Room
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,7 +19,14 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
-        Log.d("실행", "이벤트")
+
+        rooms.setOnItemClickListener { parent, view, position, id ->
+            val room = mRooms[position]
+            val roomDetailIntent = Intent(getContext(), ViewRoomDetail::class.java)
+            roomDetailIntent.putExtra("detail", room)
+
+            startActivity(roomDetailIntent)
+        }
     }
 
     override fun setValues() {
